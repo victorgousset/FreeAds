@@ -19,9 +19,7 @@ Route::get('/email', function () {
 });
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'AnnonceController@listAll')->name('accueil');
 
 Auth::routes(['verify' => true]);
 
@@ -38,4 +36,9 @@ Route::post('/modification_profil', 'ProfilController@modification_profil');
 Route::post('/modification_password', 'ProfilController@modification_password');
 Route::get('/delete', 'ProfilController@delete_account')->name('delete');
 Route::get('/delete_confirm', 'ProfilController@delete_confirm');
+
+Route::get('/annonce/my', 'AnnonceController@listMy')->name('my_annonce');
+Route::get('/annonce/post', 'AnnonceController@index')->name('post');
+Route::post('/annonce/post', 'AnnonceController@post');
+Route::get('annonce/{id}', 'AnnonceController@page');
 

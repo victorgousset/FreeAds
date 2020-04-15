@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ route('profil') }}">Profil</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -80,21 +80,18 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                @foreach($results as $result)
+                    <div class="card" style="width: 18rem;">
+                            <img src="" class="card-img-top" alt="Image annnonce">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $result->titre }}</h5>
+                            <p class="card-text">{{ $result->prix }}</p>
+                            <a href="#" class="btn btn-primary">Voir plus</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+
         </div>
     </body>
 </html>
