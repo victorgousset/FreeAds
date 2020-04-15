@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class UsersController extends Controller
+class ProfilController extends Controller
 {
-    public function __construct()
+
+    public function index()
     {
-        $this->middleware('auth'); // verifier que user est connecté
+        if (auth()->guest())
+        {
+            return redirect('/login');
+        }
+
+        return view('modification_profil');
     }
 
     /**
@@ -18,15 +25,62 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function modification_profil()
     {
-        $users = User::all();
-        return view('admin.users.index')->with('users', $users);
+        if (auth()->guest())
+        {
+            return redirect('/login');
+        }
+
+        request()->validate([
+           'name' => ['required'],
+            'email' => ['required'],
+        ]);
+
+        DB::table('users')->where('id', auth()->id())->update(['name' => request('name'), 'email' => request('email')]);
+
+        return redirect('/profil');
     }
 
-    public function profil()
+    public function modification_password()
     {
-        return view('profil');
+        if (auth()->guest())
+        {
+            return redirect('/login');
+        }
+
+        request()->validate([
+            'password' => ['required', 'confirmed', 'min:8'],
+            'password_confirm' => ['required'],
+        ]);
+
+        $password = bcrypt(request('password'));
+
+        DB::table('users')->where('id', auth()->id())->update(['password' => $password]);
+
+        return redirect('/profil');
+    }
+
+    public function delete_account()
+    {
+        if (auth()->guest())
+        {
+            return redirect('/login');
+        }
+        return view('delete');
+    }
+
+    public function delete_confirm()
+    {
+        if (auth()->guest())
+        {
+            return redirect('/login');
+        }
+
+        $id = auth()->id();
+        DB::table('users')->where('id', $id)->delete();
+
+        return redirect('/register');
     }
 
     /**
