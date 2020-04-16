@@ -27,6 +27,11 @@ class AnnonceController extends Controller
 
     public function post(Request $request)
     {
+        if (auth()->guest())
+        {
+            return redirect('/login');
+        }
+
         request()->validate([
             'titre' => ['required'],
             'description' => ['required'],
@@ -61,11 +66,10 @@ class AnnonceController extends Controller
     public function listAll()
     {
         $t = new Annonce();
-        $result = $t->getMyAnnonce();
+        $result = $t->listAll();
 
-        var_dump($result);
-
-        echo asset('public/xsKBqOgZRT1DMr5XJnYW8ZH8lK94Len4O0yJYJ0j.jpeg');
+        //var_dump($result);
+        //echo asset('public/xsKBqOgZRT1DMr5XJnYW8ZH8lK94Len4O0yJYJ0j.jpeg');
 
         return view('welcome')->with('results', $result);
     }
@@ -84,6 +88,60 @@ class AnnonceController extends Controller
 
         return view('annonce/page')->with('results', $result);
     }
+
+    public function modifier($id)
+    {
+        if(auth()->guest())
+        {
+            return redirect('/login');
+        } else {
+            $model = new Annonce();
+
+            if(count($model->verifID($id)) != 0)
+            {
+                $result = $model->getAnnonce($id);
+                return view('annonce/modifier')->with('results', $result);
+            }
+        }
+    }
+
+    public function modifierConfirm($id)
+    {
+        if(auth()->guest())
+        {
+            return redirect('/login');
+        }
+
+        request()->validate([
+            'titre' => ['required'],
+            'description' => ['required'],
+            'prix' => ['required'],
+        ]);
+
+        $model = new Annonce();
+        $model->updateMyAnnonce($id, request('titre'), request('description'), intval(request('prix')));
+
+        return redirect('/annonce/my');
+    }
+
+    public function delete($id)
+    {
+        if(auth()->guest())
+        {
+            return redirect('/login');
+        } else {
+            $model = new Annonce();
+
+            if(count($model->verifID($id)) != 0)
+            {
+                $model->deleteMyAnnonce($id);
+                return redirect('/annonce/my');
+            } else {
+                return redirect('/');
+            }
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

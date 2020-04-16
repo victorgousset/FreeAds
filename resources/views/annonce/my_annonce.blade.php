@@ -14,7 +14,9 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $result->titre }}</h5>
                                     <p class="card-text"{{ $result->description }}></p>
-                                    <a href="#" class="btn btn-primary">Voir plus</a>
+                                    <a href="{{ route('annonce', ['id' => $result->id]) }}" class="btn btn-primary">Voir plus</a>
+                                    <a href="{{ route('ModifAnnonce', ['id' => $result->id]) }}" class="btn btn-warning">Modifier</a>
+                                    <a href="{{ route('DeleteAnnonce', ['id' => $result->id]) }}" class="btn btn-danger">Supprimer</a>
                                 </div>
                             </div>
                         @endforeach

@@ -22,7 +22,6 @@ Route::get('/email', function () {
 Route::get('/', 'AnnonceController@listAll')->name('accueil');
 
 Auth::routes(['verify' => true]);
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -40,5 +39,9 @@ Route::get('/delete_confirm', 'ProfilController@delete_confirm');
 Route::get('/annonce/my', 'AnnonceController@listMy')->name('my_annonce');
 Route::get('/annonce/post', 'AnnonceController@index')->name('post');
 Route::post('/annonce/post', 'AnnonceController@post');
-Route::get('annonce/{id}', 'AnnonceController@page');
+Route::get('/annonce/{id}', 'AnnonceController@page')->name('annonce');
+Route::get('/annonce/modifier/{id}', 'AnnonceController@modifier')->name('ModifAnnonce');
+Route::post('/annonce/modifier/{id}', 'AnnonceController@modifierConfirm');
+Route::get('/annonce/delete/{id}', 'AnnonceController@delete')->name('DeleteAnnonce');
 
+Route::get('/search', 'SearchController@index')->name("search");

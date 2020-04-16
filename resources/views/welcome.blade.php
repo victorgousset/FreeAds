@@ -67,7 +67,8 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @auth
+                    <a href="{{ route('search') }}">Recherche</a>
+                @auth
                         <a href="{{ route('profil') }}">Profil</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
@@ -86,7 +87,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $result->titre }}</h5>
                             <p class="card-text">{{ $result->prix }}</p>
-                            <a href="#" class="btn btn-primary">Voir plus</a>
+                            <a href="/annonce/{{ $result->id }}" class="btn btn-primary">Voir plus</a>
                         </div>
                     </div>
                 @endforeach

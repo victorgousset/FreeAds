@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 class Annonce extends Model
 {
 
+    public function verifID($id)
+    {
+        $result = DB::select('SELECT * FROM Annonce WHERE id = :id', ['id' => $id]);
+        return $result;
+    }
+
     public function listAll()
     {
         $result = DB::select('SELECT * FROM Annonce');
@@ -34,4 +40,13 @@ class Annonce extends Model
         return $result;
     }
 
+    public function deleteMyAnnonce($id)
+    {
+        DB::table('Annonce')->where('id', $id)->delete();
+    }
+
+    public function updateMyAnnonce($id, $titre, $description, $prix)
+    {
+        DB::table('Annonce')->where('id', $id)->update(['titre' => $titre, 'description' => $description, 'prix' => $prix]);
+    }
 }
