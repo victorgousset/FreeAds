@@ -45,3 +45,4 @@ Route::post('/annonce/modifier/{id}', 'AnnonceController@modifierConfirm');
 Route::get('/annonce/delete/{id}', 'AnnonceController@delete')->name('DeleteAnnonce');
 
 Route::get('/search', 'SearchController@index')->name("search");
+Route::post('/search', 'SearchController@search');

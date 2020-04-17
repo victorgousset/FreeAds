@@ -16,11 +16,11 @@
                             <label>Image<input type="file" name="image" placeholder="Image"></label><br>
                             <input class="form-control" type="text" name="prix" placeholder="Prix"><br>
 
-                            @if($errors->has('titre') || $errors->has('description'))
+                            @if($errors->has('titre') || $errors->has('description') || $errors->has('description') || $errors->has('image'))
                                 <p class="help is-danger" style="color: red;">Tous les champs ne sont pas remplis</p>
                             @endif
                             <div class="control">
-                                <button class="button is-link btn btn-primary" type="submit">Modifier mon Profil</button>
+                                <button class="button is-link btn btn-primary" type="submit">Poster</button>
                             </div>
                         </form>
 

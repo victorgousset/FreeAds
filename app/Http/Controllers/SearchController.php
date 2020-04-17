@@ -14,7 +14,27 @@ class SearchController extends Controller
      */
     public function index()
     {
-        //
+        return view('search');
+    }
+
+    public function search()
+    {
+        request()->validate([
+            'value' => ['required'],
+        ]);
+
+        $value = request('value');
+
+        $model = new Search();
+        $result = $model->Recherche($value);
+
+        if(count($result) == 0)
+        {
+            $resultNull = "Aucun résultat pour la recherche: " . $value;
+            return view('search')->with($resultNull);
+        }
+
+        return view('search_result')->with('results', $result);
     }
 
     /**
