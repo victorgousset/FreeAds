@@ -49,4 +49,11 @@ class Annonce extends Model
     {
         DB::table('Annonce')->where('id', $id)->update(['titre' => $titre, 'description' => $description, 'prix' => $prix]);
     }
+
+    public function getIdCategory($nom)
+    {
+        $result = DB::select('SELECT * FROM annonce_category WHERE nom = :nom', ['nom' => $nom]);
+
+        return $result;
+    }
 }

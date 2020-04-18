@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>FreeAds</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -80,19 +80,19 @@
                 </div>
             @endif
 
-            <div class="content">
-                @foreach($results as $result)
-                    <div class="card" style="width: 18rem;">
-                            <img src="" class="card-img-top" alt="Image annnonce">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $result->titre }}</h5>
-                            <p class="card-text">{{ $result->prix }}</p>
-                            <a href="/annonce/{{ $result->id }}" class="btn btn-primary">Voir plus</a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
+            <br>
+                <div class="content">
+                    @foreach($results as $result)
+                        <div class="card" style="width: 18rem; border: 2px solid black;">
+                            <img width="200" src="{{ str_replace("public", "storage", $result->img) }}" class="card-img-top" alt="Image annnonce">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $result->titre }}</h5>
+                                <p class="card-text">{{ $result->prix }}€</p>
+                                <a href="/annonce/{{ $result->id }}" class="btn btn-primary">Voir plus</a>
+                            </div>
+                        </div><br>
+                    @endforeach
+                </div>
         </div>
     </body>
 </html>

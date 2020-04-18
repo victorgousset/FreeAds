@@ -9,7 +9,7 @@
                         @foreach($results as $result)
                             <h1>{{ $result->titre }}</h1>
                             <br><br>
-                            <h3>{{ $result->prix }}</h3>
+                            <h3>{{ $result->prix }}€</h3>
 
                             <br><br><br>
 

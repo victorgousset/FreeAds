@@ -46,9 +46,10 @@ class AnnonceController extends Controller
         $id_user = auth()->id();
 
         $insert = new Annonce();
-        $insert->insert($titre, $description, $image, $prix, $id_user);
+        var_dump(request('select_category'));
+        //$insert->insert($titre, $description, $image, $prix, $id_user);
 
-        return redirect('/profil');
+        //return redirect('/profil');
     }
 
     public function listMy()
@@ -76,7 +77,7 @@ class AnnonceController extends Controller
 
     public function page($id)
     {
-        var_dump($id);
+        //var_dump($id);
 
         $t = new Annonce();
         $result = $t->getAnnonce($id);
